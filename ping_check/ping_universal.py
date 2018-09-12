@@ -180,49 +180,49 @@ def create_table(dict_devices):
     table_instance.justify_columns = {0: 'center', 1: 'center', 2: 'center', 3: 'center', 4: 'center'}
     return table_instance.table
 
-while True:
-    dict_devices = {}
-    start = datetime.datetime.now()
-    """
-    Заполняем очередь устройствами из файла. 
-    Пример заполнения файла:
-    device1;ip_address
-    device2;ip_address
-    Fill the queue with devices from the file
-    Example of filling a file:
-    device1;ip_address
-    device2;ip_address
-    """
-    with open(path, 'r') as f:
-        a = f.readlines()
-        for i in a:
-            work_queue.put(i)
-    # заполняем словарь с путями до удалённого хоста
-    # we fill the dictionary with the paths to the remote host
-    paths = Traceroute.create_dict_path(path1)
+if __name__ == "__main__":
+    while True:
+        start = datetime.datetime.now()
+        """
+        Заполняем очередь устройствами из файла. 
+        Пример заполнения файла:
+        device1;ip_address
+        device2;ip_address
+        Fill the queue with devices from the file
+        Example of filling a file:
+        device1;ip_address
+        device2;ip_address
+        """
+        with open(path, 'r') as f:
+            a = f.readlines()
+            for i in a:
+                work_queue.put(i)
+        # заполняем словарь с путями до удалённого хоста
+        # we fill the dictionary with the paths to the remote host
+        paths = Traceroute.create_dict_path(path1)
 
-    for i in range(57):
-        # print(u'Flow', str(i), u'start')
-        # print(u'Поток', str(i), u'стартовал')
-        # print("Number of active flows: ", threading.activeCount())
-        # print(u"Количчество активных потоков: ", threading.activeCount())
-        t1 = threading.Thread(target=ping, args=(work_queue, paths,))
-        t1.setDaemon(True)
-        t1.start()
-        time.sleep(0.1)
+        for i in range(57):
+            # print(u'Flow', str(i), u'start')
+            # print(u'Поток', str(i), u'стартовал')
+            # print("Number of active flows: ", threading.activeCount())
+            # print(u"Количчество активных потоков: ", threading.activeCount())
+            t1 = threading.Thread(target=ping, args=(work_queue, paths,))
+            t1.setDaemon(True)
+            t1.start()
+            time.sleep(0.1)
 
-    work_queue.join()  # Ставим блокировку до тех пор пока не будут выполнены все задания
-    if "win" in platform:
-        Windows.enable(auto_colors=True, reset_atexit=True)    # Enable colors in the windows terminal
-    else:
-        pass
-    os.system("cls||clear")
-    print(start)
-    print(create_table(dict_devices))
-    end = datetime.datetime.now()
-    delta = "{autored}" + str(end - start) + "{/autored}"
-    print(Color(delta))
-    print(Color("{{{0}}}{1}{{/{0}}} - main path".format("autogreen", "Color")))
-    print(Color("{{{0}}}{1}{{/{0}}} - backup path".format("autoyellow", "Color")))
-    print(Color("{{{0}}}{1}{{/{0}}} - Internet or not in the file paths".format("autowhite", "Color")))
-    time.sleep(7)
+        work_queue.join()  # Ставим блокировку до тех пор пока не будут выполнены все задания
+        if "win" in platform:
+            Windows.enable(auto_colors=True, reset_atexit=True)    # Enable colors in the windows terminal
+        else:
+            pass
+        os.system("cls||clear")
+        print(start)
+        print(create_table(dict_devices))
+        end = datetime.datetime.now()
+        delta = "{autored}" + str(end - start) + "{/autored}"
+        print(Color(delta))
+        print(Color("{{{0}}}{1}{{/{0}}} - main path".format("autogreen", "Color")))
+        print(Color("{{{0}}}{1}{{/{0}}} - backup path".format("autoyellow", "Color")))
+        print(Color("{{{0}}}{1}{{/{0}}} - Internet or not in the file paths".format("autowhite", "Color")))
+        time.sleep(7)
