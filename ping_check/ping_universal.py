@@ -18,6 +18,7 @@ path = r"C:\Scripts\ping_check\list_devices.txt"    # Список устрой�
 path1 = r"C:\Scripts\ping_check\list_paths.txt"    # Список путей
 # Создаем FIFO очередь
 # Create a FIFO queue
+dict_devices = {}
 work_queue = queue.Queue()
 
 
@@ -26,13 +27,14 @@ def ping_ip(ip_address, platform):
     Функция выполняющая каманду ping и возвращающая результат выполнения
     Function that executes the 'ping' command and returns the result of execution
     """
+    trace = []
     if "win" in platform:
         # Определяем кодировку терминала windows
         # Define the encoding of the terminal windows
         coding = "cp{0}".format(ctypes.windll.kernel32.GetOEMCP())
         reply = subprocess.run(['ping', '-n', '8', ip_address], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                            encoding=coding)
-        trace = []
+        
         if reply.returncode == 0:
             trace = Traceroute.traceroute(platform, ip_address)
             return reply.stdout, trace
