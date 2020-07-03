@@ -3,12 +3,14 @@
  - Поддерживаемы операционные системы: Windows, Linux
 В файле "list_devices.txt" содержится список устройств для проверки.
 В файле "ist_paths.txt" содержатся пути до этих устройств.
-  Файл "ping_universal_date.py" делает всё тоже самое что и "ping_universal.py", только добавляет колонку с датой и временем начала инцидента.
+ - Файл "ping_universal_date.py" делает всё тоже самое что и "ping_universal.py", только добавляет колонку с датой и временем начала инцидента.
+ - Файл "ping_universal_date_log.py" делает всё тоже самое что и "ping_universal_date.py", только записывает в лог файл дату и время начала и конца инцедента.
 P.S Не тестировалось на 32-х битных системах
 
 The program is used to check the availability of devices using the "ping" command and check the path to which the device is available. The result of the work is output to the terminal as a table with rows of different colors. The color depends on the availability / unavailability of the device and the way in which a particular device is available (main / backup). 
-Supported Operating Systems: Windows, Linux
+ - Supported Operating Systems: Windows, Linux
 The file "list_devices.txt" contains a list of devices to check.
 The file "ist_paths.txt" contains the paths to these devices.
-The file "ping_universal_date.py" does the same thing as "ping_universal.py", only adds a column with the date and time the incident began.
+ - The file "ping_universal_date.py" does the same thing as "ping_universal.py", only adds a column with the date and time the incident began.
+ - The file "ping_universal_date_log.py" does everything the same as "ping_universal_date.py", only writes the date and time of the beginning and end of the incident to the log file.
 P.S Not tested on 32-bit systems
